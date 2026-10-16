@@ -1,0 +1,28 @@
+{
+  "name": "wandeng-independent",
+  "version": "2.2.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.14"
+  },
+  "scripts": {
+    "start": "node dist/server.mjs",
+    "build": "node build.mjs",
+    "check": "node verify-cloud.mjs",
+    "test:api": "node verify-api.mjs"
+  },
+  "dependencies": {
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "lucide-react": "^1.31.0",
+    "@noble/hashes": "2.4.0",
+    "pg": "8.23.1"
+  },
+  "devDependencies": {
+    "vite": "8.0.13",
+    "@vitejs/plugin-react": "6.0.2",
+    "esbuild": "0.28.0",
+    "@electric-sql/pglite": "0.5.10"
+  }
+}

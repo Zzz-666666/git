@@ -1,0 +1,36 @@
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      WANDE_PUBLIC_ORIGIN: https://${WANDE_DOMAIN:?set WANDE_DOMAIN in .env}
+      WANDE_TRUST_PROXY: "1"
+      WANDE_TRUSTED_PROXY_IPS: 172.30.88.2
+    volumes:
+      - ./data:/data
+    networks:
+      private:
+        ipv4_address: 172.30.88.3
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    environment:
+      WANDE_DOMAIN: ${WANDE_DOMAIN:?set WANDE_DOMAIN in .env}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      private:
+        ipv4_address: 172.30.88.2
+networks:
+  private:
+    ipam:
+      config:
+        - subnet: 172.30.88.0/24
+volumes:
+  caddy_data:
+  caddy_config:
